@@ -37,7 +37,7 @@ export CPPFLAGS="-I$vendordir/glibc-2.7/string/ -I$vendordir/glibc-2.7/time"
 
 # configure and make R
 cd $basedir/R-$rversion/
-./configure --prefix=$prefix --without-x && make && make install
+./configure --prefix=$prefix --without-x --enable-R-shlib && make && make install
 
 # remove unneeded files to make the output smaller
 cd $vendordir
