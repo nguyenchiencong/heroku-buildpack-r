@@ -2,11 +2,14 @@
 
 rversion=2.15.1
 
+echo "-----------> step 1: executing build-r"
 tar czf build.tgz build-r
 
+echo "-----------> step 2: vulcan build"
 vulcan build --source=./build.tgz \
              --prefix=/app/vendor \
              --command="./build-r $rversion" \
              --verbose
 
+# echo "-----------> step 3: remove files after build"
 rm build.tgz
