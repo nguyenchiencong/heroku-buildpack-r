@@ -54,15 +54,3 @@ RPROG
 
 echo "R $R_VERSION successfully installed" | indent
 
-# Starting the Rserve instance
-
-cd $BUILD_DIR
-echo "Fetching Rserve" | indent
-curl $RSERVE_TAR -o Rserve_1.7-0.tar.gz
-mv Rserve_1.7-0.tar.gz /app/vendor/R/lib64/R/library/
-
-echo "Installing Rserve..." | indent
-/app/vendor/R/bin/R CMD INSTALL /app/vendor/R/lib64/R/library/Rserve_1.7-0.tar.gz
-
-echo "Starting Rserve" | indent
-/app/vendor/R/bin/R CMD Rserve --silent

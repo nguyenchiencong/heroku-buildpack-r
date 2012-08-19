@@ -19,6 +19,7 @@ curl http://archive.ubuntu.com/ubuntu/pool/main/g/glibc/glibc_2.7.orig.tar.gz -o
 
 # download Rserve
 # curl http://www.rforge.net/Rserve/snapshot/Rserve_1.7-0.tar.gz -o Rserve_1.7-0.tar.gz
+curl http://nguyenchiencong.s3.amazonaws.com/public/Rserve_1.7-0.tar.gz -o Rserve_1.7-0.tar.gz
 
 # download R sources and unpack
 curl http://cran.r-project.org/src/base/R-2/R-$rversion.tar.gz -o R-$rversion.tar.gz
@@ -41,6 +42,10 @@ export CPPFLAGS="-I$vendordir/glibc-2.7/string/ -I$vendordir/glibc-2.7/time"
 # configure and make R
 cd $basedir/R-$rversion/
 ./configure --prefix=$prefix --without-x --enable-R-shlib && make && make install
+
+$vendordir/R/bin/R CMD INSTALL $basedir/Rserve_1.7-0.tar.gz
+
+
 
 # remove unneeded files to make the output smaller
 cd $vendordir
