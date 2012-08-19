@@ -49,3 +49,15 @@ mkdir -p /app/vendor/R/lib64/R/doc/html
 RPROG
 
 echo "R $R_VERSION successfully installed" | indent
+
+# Installing Rserve
+echo "Installing Rserve package" | indent
+/app/vendor/R/bin/R -s --silent <<RPROG
+  r <- getOption("repos"); 
+  r["CRAN"] <- "$CRAN_MIRROR";
+  install.packages("Rserve");
+RPROG
+
+# Starting the Rserve deamon
+echo "Starting Rserve" | indent
+/app/vendor/R/bin/R CMD Rserve -s --silent
