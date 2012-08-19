@@ -13,16 +13,39 @@ basedir="$( cd -P "$( dirname "$0" )" && pwd )"
 vendordir=/app/vendor
 prefix=$vendordir/R
 
-# download dependancies 
-curl http://gfortran.com/download/x86_64/snapshots/gcc-4.3.tar.xz -o gcc-4.3.tar.xz
-curl http://archive.ubuntu.com/ubuntu/pool/main/g/glibc/glibc_2.7.orig.tar.gz -o glibc_2.7.tar.gz
+# download dependancies
+# curl http://gfortran.com/download/x86_64/snapshots/gcc-4.3.tar.xz -o gcc-4.3.tar.xz
+if [ ! -f "gcc-4.7.tar.xz" ]; then
+  # puts-warn "Checked-in virtualenv conflict."
+  # exit 1;
+  curl http://gfortran.com/download/x86_64/snapshots/gcc-4.7.tar.xz -o gcc-4.7.tar.xz
+fi
+
+
+# # curl http://archive.ubuntu.com/ubuntu/pool/main/g/glibc/glibc_2.7.orig.tar.gz -o glibc_2.7.tar.gz
+# curl http://archive.ubuntu.com/ubuntu/pool/main/g/glibc/glibc_2.7.orig.tar.gz -o glibc_2.7.tar.gz
+if [ ! -f "glibc_2.7.orig.tar.gz" ]; then
+	# curl http://archive.ubuntu.com/ubuntu/pool/main/g/glibc/glibc_2.7.orig.tar.gz -o glibc_2.7.tar.gz
+	curl http://archive.ubuntu.com/ubuntu/pool/main/g/glibc/glibc_2.7.orig.tar.gz -o glibc_2.7.tar.gz
+fi
 
 # download Rserve
-# curl http://www.rforge.net/Rserve/snapshot/Rserve_1.7-0.tar.gz -o Rserve_1.7-0.tar.gz
-curl http://nguyenchiencong.s3.amazonaws.com/public/Rserve_1.7-0.tar.gz -o Rserve_1.7-0.tar.gz
+# # curl http://www.rforge.net/Rserve/snapshot/Rserve_1.7-0.tar.gz -o Rserve_1.7-0.tar.gz
+# curl http://nguyenchiencong.s3.amazonaws.com/public/Rserve_1.7-0.tar.gz -o Rserve_1.7-0.tar.gz
+if [ ! -f "Rserve_1.7-0.tar.gz" ]; then
+	# curl http://www.rforge.net/Rserve/snapshot/Rserve_1.7-0.tar.gz -o Rserve_1.7-0.tar.gz
+	curl http://nguyenchiencong.s3.amazonaws.com/public/Rserve_1.7-0.tar.gz -o Rserve_1.7-0.tar.gz
+fi
 
 # download R sources and unpack
-curl http://cran.r-project.org/src/base/R-2/R-$rversion.tar.gz -o R-$rversion.tar.gz
+# curl http://cran.r-project.org/src/base/R-2/R-$rversion.tar.gz -o R-$rversion.tar.gz
+if [ ! -f "R-$rversion.tar.gz" ]; then
+	curl http://cran.r-project.org/src/base/R-2/R-$rversion.tar.gz -o R-$rversion.tar.gz
+fi
+
+# If error when building
+# rm -rf R-$rversion/
+
 tar xzf R-$rversion.tar.gz
 
 # create output directories
@@ -31,12 +54,16 @@ mkdir -p $prefix
 
 # unpack dependancies (into vendor)
 cd $vendordir
-tar xJf $basedir/gcc-4.3.tar.xz
+# tar xJf $basedir/gcc-4.3.tar.xz
+tar xJf $basedir/gcc-4.7.tar.xz
+
 tar xzf $basedir/glibc_2.7.tar.gz && tar xjf glibc-2.7/glibc-2.7.tar.bz2
 
 # R needs to know where gfortran and glibc header files are
-export PATH=$vendordir/gcc-4.3/bin:$PATH
-export LDFLAGS="-L$vendordir/gcc-4.3/lib64/ -R$vendordir/gcc-4.3/lib64/"
+# export PATH=$vendordir/gcc-4.3/bin:$PATH
+# export LDFLAGS="-L$vendordir/gcc-4.3/lib64/ -R$vendordir/gcc-4.3/lib64/"
+export PATH=$vendordir/gcc-4.7/bin:$PATH
+export LDFLAGS="-L$vendordir/gcc-4.7/lib64/ -R$vendordir/gcc-4.7/lib64/"
 export CPPFLAGS="-I$vendordir/glibc-2.7/string/ -I$vendordir/glibc-2.7/time"
 
 # configure and make R

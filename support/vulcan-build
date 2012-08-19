@@ -11,5 +11,5 @@ vulcan build --source=./build.tgz \
              --command="./build-r $rversion" \
              --verbose
 
-# echo "-----------> step 3: remove files after build"
+echo "-----------> step 3: remove files after build"
 rm build.tgz
