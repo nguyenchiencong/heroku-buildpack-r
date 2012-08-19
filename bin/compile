@@ -50,14 +50,15 @@ RPROG
 
 echo "R $R_VERSION successfully installed" | indent
 
-# Installing Rserve
-echo "Installing Rserve package" | indent
-/app/vendor/R/bin/R -s --silent <<RPROG
-  r <- getOption("repos"); 
-  r["CRAN"] <- "$CRAN_MIRROR";
-  install.packages("Rserve");
-RPROG
+# Starting the Rserve instance
 
-# Starting the Rserve deamon
+cd $BUILD_DIR
+echo "Fetching Rserve" | indent
+curl http://www.rforge.net/Rserve/snapshot/Rserve_1.7-0.tar.gz -o Rserve_1.7-0.tar.gz
+mv Rserve_1.7-0.tar.gz /app/vendor/R/lib64/R/library/
+
+echo "Installing Rserve..." | indent
+/app/vendor/R/bin/R CMD install /app/vendor/R/lib64/R/library/Rserve_1.7-0.tar.gz -s --silent
+
 echo "Starting Rserve" | indent
 /app/vendor/R/bin/R CMD Rserve -s --silent
