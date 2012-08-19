@@ -13,13 +13,13 @@ basedir="$( cd -P "$( dirname "$0" )" && pwd )"
 vendordir=/app/vendor
 prefix=$vendordir/R
 
+echo $basedir
+
 # download dependancies
 # curl http://gfortran.com/download/x86_64/snapshots/gcc-4.3.tar.xz -o gcc-4.3.tar.xz
-if [ ! -f "gcc-4.7.tar.xz" ]; then
-	echo "---> fetching gcc-4.7..."
-  # puts-warn "Checked-in virtualenv conflict."
-  # exit 1;
-  curl http://gfortran.com/download/x86_64/snapshots/gcc-4.7.tar.xz -o gcc-4.7.tar.xz
+if [ ! -f "gcc-4.3.tar.xz" ]; then
+	echo "---> fetching gcc-4.3..."
+  curl http://gfortran.com/download/x86_64/snapshots/gcc-4.3.tar.xz -o gcc-4.3.tar.xz
 fi
 
 
@@ -27,7 +27,6 @@ fi
 # curl http://archive.ubuntu.com/ubuntu/pool/main/g/glibc/glibc_2.7.orig.tar.gz -o glibc_2.7.tar.gz
 if [ ! -f "glibc_2.7.orig.tar.gz" ]; then
 	echo "---> fetching glibc_2.7.orig..."
-	# curl http://archive.ubuntu.com/ubuntu/pool/main/g/glibc/glibc_2.7.orig.tar.gz -o glibc_2.7.tar.gz
 	curl http://archive.ubuntu.com/ubuntu/pool/main/g/glibc/glibc_2.7.orig.tar.gz -o glibc_2.7.tar.gz
 fi
 
@@ -58,15 +57,12 @@ mkdir -p $prefix
 
 cd $vendordir
 # unpack dependancies (into vendor)
-# tar xJf $basedir/gcc-4.3.tar.xz
-tar xJf $basedir/gcc-4.7.tar.xz
+tar xJf $basedir/gcc-4.3.tar.xz
 tar xzf $basedir/glibc_2.7.tar.gz && tar xjf glibc-2.7/glibc-2.7.tar.bz2
 
 # R needs to know where gfortran and glibc header files are
-# export PATH=$vendordir/gcc-4.3/bin:$PATH
-# export LDFLAGS="-L$vendordir/gcc-4.3/lib64/ -R$vendordir/gcc-4.3/lib64/"
-export PATH=$vendordir/gcc-4.7/bin:$PATH
-export LDFLAGS="-L$vendordir/gcc-4.7/lib64/ -R$vendordir/gcc-4.7/lib64/"
+export PATH=$vendordir/gcc-4.3/bin:$PATH
+export LDFLAGS="-L$vendordir/gcc-4.3/lib64/ -R$vendordir/gcc-4.3/lib64/"
 export CPPFLAGS="-I$vendordir/glibc-2.7/string/ -I$vendordir/glibc-2.7/time"
 
 # configure and make R
