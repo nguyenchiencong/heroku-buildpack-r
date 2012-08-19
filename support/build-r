@@ -17,6 +17,9 @@ prefix=$vendordir/R
 curl http://gfortran.com/download/x86_64/snapshots/gcc-4.3.tar.xz -o gcc-4.3.tar.xz
 curl http://archive.ubuntu.com/ubuntu/pool/main/g/glibc/glibc_2.7.orig.tar.gz -o glibc_2.7.tar.gz
 
+# download Rserve
+# curl http://www.rforge.net/Rserve/snapshot/Rserve_1.7-0.tar.gz -o Rserve_1.7-0.tar.gz
+
 # download R sources and unpack
 curl http://cran.r-project.org/src/base/R-2/R-$rversion.tar.gz -o R-$rversion.tar.gz
 tar xzf R-$rversion.tar.gz
@@ -42,27 +45,27 @@ cd $basedir/R-$rversion/
 # remove unneeded files to make the output smaller
 cd $vendordir
 
-rm glibc-2.7/*.bz2
-rm glibc-2.7/BUGS
-rm glibc-2.7/CANCEL*
-rm glibc-2.7/ChangeLog*
-rm glibc-2.7/CONFORMANCE
-rm glibc-2.7/COPYING*
-rm glibc-2.7/NAMESPACE
-rm glibc-2.7/NEWS
-rm glibc-2.7/NOTES
-rm glibc-2.7/PROJECTS
-rm glibc-2.7/README*
-rm glibc-2.7/Rules
-rm glibc-2.7/WUR-REPORT
-rm -rf glibc-2.7/man
+# rm glibc-2.7/*.bz2
+# rm glibc-2.7/BUGS
+# rm glibc-2.7/CANCEL*
+# rm glibc-2.7/ChangeLog*
+# rm glibc-2.7/CONFORMANCE
+# rm glibc-2.7/COPYING*
+# rm glibc-2.7/NAMESPACE
+# rm glibc-2.7/NEWS
+# rm glibc-2.7/NOTES
+# rm glibc-2.7/PROJECTS
+# rm glibc-2.7/README*
+# rm glibc-2.7/Rules
+# rm glibc-2.7/WUR-REPORT
+# rm -rf glibc-2.7/man
 
-rm -rf gcc-4.3/info
-rm -rf gcc-4.3/man
+# rm -rf gcc-4.3/info
+# rm -rf gcc-4.3/man
 
-rm -rf R/lib64/R/doc
-rm R/lib64/R/COPYING*
-rm R/lib64/R/NEWS*
-rm R/lib64/R/SVN-REVISION
+# rm -rf R/lib64/R/doc
+# rm R/lib64/R/COPYING*
+# rm R/lib64/R/NEWS*
+# rm R/lib64/R/SVN-REVISION
 
 # TODO
