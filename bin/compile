@@ -62,7 +62,7 @@ curl $RSERVE_TAR -o Rserve_1.7-0.tar.gz
 mv Rserve_1.7-0.tar.gz /app/vendor/R/lib64/R/library/
 
 echo "Installing Rserve..." | indent
-/app/vendor/R/bin/R CMD install /app/vendor/R/lib64/R/library/Rserve_1.7-0.tar.gz
+/app/vendor/R/bin/R CMD INSTALL /app/vendor/R/lib64/R/library/Rserve_1.7-0.tar.gz
 
 echo "Starting Rserve" | indent
 /app/vendor/R/bin/R CMD Rserve --silent
